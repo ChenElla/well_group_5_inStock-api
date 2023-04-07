@@ -1,0 +1,18 @@
+{
+  "name": "instock_with_dbs-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:migrate": "knex migrate:latest",
+    "db:seed": "knex seed:run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.0",
+    "knex": "^2.0.0",
+    "mysql": "^2.18.1"
+  }
+}
