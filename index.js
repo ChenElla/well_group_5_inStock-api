@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5050;
 
 const warehouseRoutes = require('./routes/warehouseRoute');
-const inventoryRoutes = require('./routes/inventoryRoute');
+const inventoryRoutes = require('./routes/InventoryRoute.js');
 
 app.use(express.json());
 
