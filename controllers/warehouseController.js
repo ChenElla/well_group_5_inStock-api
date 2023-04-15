@@ -58,9 +58,24 @@ exports.warehouseInventories = (req, res) => {
 };
 
 exports.addWarehouse = (req, res) => {
+  const validRegex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const validRegex_phone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  //Valid phone format:(123) 456-7890
+// (123)456-7890
+// 123-456-7890
+// 123.456.7890
+// 1234567890
+// +31636363634
+// 075-63546725
   // Validate the request body for required data
   if (!req.body.name || !req.body.manager || !req.body.address || !req.body.phone || !req.body.email) {
     return res.status(400).send('Please make sure to provide name, manager, address, phone and email fields in a request');
+  }
+  if(!req.body.email.match(validRegex_email)){
+    return res.status(400).send('Please make sure to provide a valid email');
+  }
+  if(!req.body.phone.match(validRegex_phone)){
+    return res.status(400).send('Please make sure to provide a valid phone number');
   }
 
   knex('warehouse')
@@ -72,7 +87,7 @@ exports.addWarehouse = (req, res) => {
     })
     .catch((err) => res.status(400).send(`Error creating Warehouse: ${err}`));
 };
-
+//PUT/EDIT Warehouse
 exports.updateWarehouse = (req, res) => {
   knex('warehouse')
     .update(req.body)
