@@ -10,15 +10,15 @@ exports.index = (_req, res) => {
     );
 };
 
+// Single Item Get Request
 exports.singleItem = (req, res) => {
   knex("inventories")
     .where({ id: req.params.id })
     .then((data) => {
-      res.json(data[0]);
-    })
-    .catch((err) => {
-      res
-        .status(404)
-        .json({ message: `error getting inventory item ${req.params.id}` });
+      if (data[0]) res.status(200).json(data[0]);
+      else
+        res
+          .status(404)
+          .json({ message: `error getting inventory item ${req.params.id}` });
     });
 };
