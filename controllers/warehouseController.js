@@ -78,7 +78,7 @@ exports.addWarehouse = (req, res) => {
     return res.status(400).send('Please make sure to provide a valid phone number');
   }
 
-  knex('warehouse')
+  knex('warehouses')
     .insert(req.body)
     .then((data) => {
       // For POST requests we need to respond with 201 and the location of the newly created record
@@ -89,7 +89,7 @@ exports.addWarehouse = (req, res) => {
 };
 //PUT/EDIT Warehouse
 exports.updateWarehouse = (req, res) => {
-  knex('warehouse')
+  knex('warehouses')
     .update(req.body)
     .where({ id: req.params.id })
     .then(() => {
@@ -101,7 +101,7 @@ exports.updateWarehouse = (req, res) => {
 };
 
 exports.updateWarehouse = (req, res) => {
-  knex('warehouse')
+  knex('warehouses')
     .update(req.body)
     .where({ id: req.params.id })
     .then(() => {
@@ -113,7 +113,7 @@ exports.updateWarehouse = (req, res) => {
 };
 
 exports.deleteWarehouse = (req, res) => {
-  knex('warehouse')
+  knex('warehouses')
     .delete()
     .where({ id: req.params.id })
     .then(() => {

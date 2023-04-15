@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db:migrate": "knex migrate:latest",
-    "db:seed": "knex seed:run",
     "dev": "nodemon index.js",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run"
