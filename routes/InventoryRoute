@@ -1,6 +1,20 @@
-const router = require('express').Router();
-const inventoryController = require('../controllers/inventoryController');
+const router = require("express").Router();
+const inventoryController = require("../controllers/inventoryController");
 
-router.route('/').get(inventoryController.index);
+router.route("/").get(inventoryController.index);
+
+// api/inventories/:id
+router.route("/inventory/:id").get((req, res) => {
+  knex
+    .select("*")
+    .from //need info//
+    ()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.status(500).send("error getting data");
+    });
+});
 
 module.exports = router;
