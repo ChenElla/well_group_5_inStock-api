@@ -1,7 +1,7 @@
 const knex = require('knex')(require('../knexfile'));
 
 exports.index = (_req, res) => {
-  knex("warehouse")
+  knex("warehouses")
     .then((data) => {
       res.status(200).json(data);
     })
@@ -11,7 +11,7 @@ exports.index = (_req, res) => {
 };
 
 exports.singleWarehouse = (req, res) => {
-  knex("warehouse")
+  knex("warehouses")
     .where({ id: req.params.id })
     .then((data) => {
       // If record is not found, respond with 404
@@ -30,10 +30,23 @@ exports.singleWarehouse = (req, res) => {
 };
 
 exports.warehouseInventories = (req, res) => {
-  knex('inventory')
+  knex('inventories')
     .where({ warehouse_id: req.params.id })
     .then((data) => {
-      res.status(200).json(data);
+      data_to_display = []
+      console.log(data)
+      data.forEach(e => {
+        data_to_display.push(
+          {
+            id: e.id,
+            item_name: e.item_name,
+            category: e.category,
+            status: e.status,
+            quantity: e.quantity,
+          }
+        )}
+      )
+      res.status(200).json(data_to_display);
     })
     .catch((err) =>
       res

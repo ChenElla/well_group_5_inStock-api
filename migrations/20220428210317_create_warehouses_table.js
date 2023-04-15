@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable('warehouses', (table) => {
+  return knex.schema.withSchema(process.env.DB_LOCAL_DBNAME).createTable('warehouses', (table) => {
     table.uuid('id').primary();
     table.string('warehouse_name').notNullable();
     table.string('address').notNullable();
@@ -22,5 +22,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable('warehouses');
+  return knex.schema.withSchema(process.env.DB_LOCAL_DBNAME).dropTable('warehouses');
 };
