@@ -6,15 +6,18 @@
   "scripts": {
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.0",
-    "knex": "^2.0.0",
+    "knex": "^2.4.2",
     "mysql": "^2.18.1"
   }
 }

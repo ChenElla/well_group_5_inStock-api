@@ -6,7 +6,10 @@ const warehouseRoutes = require('./routes/warehouseRoute');
 const inventoryRoutes = require('./routes/inventoryRoute');
 
 app.use(express.json());
-
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
 app.use('/inventories', inventoryRoutes);
 app.use('/warehouses', warehouseRoutes);
 
