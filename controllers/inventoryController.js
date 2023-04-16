@@ -24,17 +24,7 @@ exports.singleItem = (req, res) => {
     )
     .from("inventories")
     .join("warehouses", "inventories.warehouse_id", "=", "warehouses.id")
-    // .select(
-    //   "id",
-    //   "warehouses.warehouse_name",
-    //   "item_name",
-    //   "description",
-    //   "category",
-    //   "status",
-    //   "quantity"
-    // )
     .where("inventories.id", req.params.id)
-    // .where({ id: req.params.id })
     .then((data) => {
       if (data[0]) {
         data_to_display = [];
