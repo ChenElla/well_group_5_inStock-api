@@ -12,7 +12,6 @@ exports.index = (_req, res) => {
 
 exports.singleWarehouse = (req, res) => {
   knex("warehouses")
-<<<<<<< HEAD
     .select(
       'id',
       'warehouse_name',
@@ -24,8 +23,6 @@ exports.singleWarehouse = (req, res) => {
       'contact_phone',
       'contact_email'
     )
-=======
->>>>>>> develop
     .where({ id: req.params.id })
     .then((data) => {
       // If record is not found, respond with 404
