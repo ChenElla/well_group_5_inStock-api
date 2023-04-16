@@ -22,5 +22,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable('warehouses');
+  return knex.schema.withSchema(process.env.DB_LOCAL_DBNAME).dropTable('warehouses');
 };

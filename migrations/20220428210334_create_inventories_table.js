@@ -24,5 +24,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable('inventories');
+  return knex.schema.withSchema(process.env.DB_LOCAL_DBNAME).dropTable('inventories');
 };
