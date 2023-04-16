@@ -12,11 +12,46 @@ exports.index = (_req, res) => {
 
 // Single Item Get Request
 exports.singleItem = (req, res) => {
-  knex("inventories")
-    .where({ id: req.params.id })
+  knex
+    .select(
+      "inventories.id",
+      "warehouses.warehouse_name as warehouse_name",
+      "inventories.item_name",
+      "inventories.description",
+      "inventories.category",
+      "inventories.status",
+      "inventories.quantity"
+    )
+    .from("inventories")
+    .join("warehouses", "inventories.warehouse_id", "=", "warehouses.id")
+    // .select(
+    //   "id",
+    //   "warehouses.warehouse_name",
+    //   "item_name",
+    //   "description",
+    //   "category",
+    //   "status",
+    //   "quantity"
+    // )
+    .where("inventories.id", req.params.id)
+    // .where({ id: req.params.id })
     .then((data) => {
-      if (data[0]) res.status(200).json(data[0]);
-      else
+      if (data[0]) {
+        data_to_display = [];
+        console.log(data);
+        data.forEach((e) => {
+          data_to_display.push({
+            id: e.id,
+            warehouse_name: e.warehouse_name,
+            item_name: e.item_name,
+            description: e.description,
+            category: e.category,
+            status: e.status,
+            quantity: e.quantity,
+          });
+        });
+        res.status(200).json(data[0]);
+      } else
         res
           .status(404)
           .json({ message: `error getting inventory item ${req.params.id}` });
