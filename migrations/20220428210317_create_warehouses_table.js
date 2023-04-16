@@ -3,20 +3,18 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema
-    .withSchema(process.env.DB_LOCAL_DBNAME)
-    .createTable("warehouses", (table) => {
-      table.uuid("id").primary();
-      table.string("warehouse_name").notNullable();
-      table.string("address").notNullable();
-      table.string("city").notNullable();
-      table.string("country").notNullable();
-      table.string("contact_name").notNullable();
-      table.string("contact_position").notNullable();
-      table.string("contact_phone").notNullable();
-      table.string("contact_email").notNullable();
-      table.timestamps(true, true);
-    });
+  return knex.schema.withSchema(process.env.DB_LOCAL_DBNAME).createTable('warehouses', (table) => {
+    table.uuid('id').primary();
+    table.string('warehouse_name').notNullable();
+    table.string('address').notNullable();
+    table.string('city').notNullable();
+    table.string('country').notNullable();
+    table.string('contact_name').notNullable();
+    table.string('contact_position').notNullable();
+    table.string('contact_phone').notNullable();
+    table.string('contact_email').notNullable();
+    table.timestamps(true, true);
+  });
 };
 
 /**
@@ -24,5 +22,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable("warehouses");
+  return knex.schema.withSchema(process.env.DB_LOCAL_DBNAME).dropTable('warehouses');
 };

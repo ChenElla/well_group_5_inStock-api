@@ -1,7 +1,7 @@
 const knex = require('knex')(require('../knexfile'));
 
 exports.index = (_req, res) => {
-  knex("warehouse")
+  knex("warehouses")
     .then((data) => {
       res.status(200).json(data);
     })
@@ -11,7 +11,18 @@ exports.index = (_req, res) => {
 };
 
 exports.singleWarehouse = (req, res) => {
-  knex("warehouse")
+  knex("warehouses")
+    .select(
+      'id',
+      'warehouse_name',
+      'address',
+      'city',
+      'country',
+      'contact_name',
+      'contact_position',
+      'contact_phone',
+      'contact_email'
+    )
     .where({ id: req.params.id })
     .then((data) => {
       // If record is not found, respond with 404
@@ -29,8 +40,9 @@ exports.singleWarehouse = (req, res) => {
     );
 };
 
+
 exports.warehouseInventories = (req, res) => {
-  knex('inventory')
+  knex('inventories')
     .where({ warehouse_id: req.params.id })
     .then((data) => {
       res.status(200).json(data);
@@ -50,7 +62,7 @@ exports.addWarehouse = (req, res) => {
     return res.status(400).send('Please make sure to provide name, manager, address, phone and email fields in a request');
   }
 
-  knex('warehouse')
+  knex('warehouses')
     .insert(req.body)
     .then((data) => {
       // For POST requests we need to respond with 201 and the location of the newly created record
@@ -61,7 +73,7 @@ exports.addWarehouse = (req, res) => {
 };
 
 exports.updateWarehouse = (req, res) => {
-  knex('warehouse')
+  knex('warehouses')
     .update(req.body)
     .where({ id: req.params.id })
     .then(() => {
@@ -73,7 +85,7 @@ exports.updateWarehouse = (req, res) => {
 };
 
 exports.updateWarehouse = (req, res) => {
-  knex('warehouse')
+  knex('warehouses')
     .update(req.body)
     .where({ id: req.params.id })
     .then(() => {
@@ -85,7 +97,7 @@ exports.updateWarehouse = (req, res) => {
 };
 
 exports.deleteWarehouse = (req, res) => {
-  knex('warehouse')
+  knex('warehouses')
     .delete()
     .where({ id: req.params.id })
     .then(() => {
