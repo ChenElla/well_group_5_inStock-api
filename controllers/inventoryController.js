@@ -1,4 +1,27 @@
-const knex = require('knex')(require('../knexfile'));
+const knex = require("knex")(require("../knexfile"));
+
+// Single Item Get Request
+exports.singleItem = (req, res) => {
+  knex
+    .select(
+      "inventories.id",
+      "warehouses.warehouse_name as warehouse_name",
+      "inventories.item_name",
+      "inventories.description",
+      "inventories.category",
+      "inventories.status",
+      "inventories.quantity"
+    )
+    .from("inventories")
+    .join("warehouses", "inventories.warehouse_id", "=", "warehouses.id")
+    .where("inventories.id", req.params.id)
+    .then((data) => {
+        res.status(200).json(data[0]);
+      }) .catch((err) =>
+      res
+      .status(404)
+      .send(`message: error getting inventory item ${req.params.id}`)
+      )};
 
 exports.getAllInventories = async (_req, res) => {
   try {
