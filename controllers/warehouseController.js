@@ -1,6 +1,6 @@
 const knex = require('knex')(require('../knexfile'));
 const validRegex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/;
-const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{3}/i;
+const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{4}/i;
 
 exports.index = (_req, res) => {
   knex("warehouses")
