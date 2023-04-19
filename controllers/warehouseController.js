@@ -22,6 +22,17 @@ exports.index = (_req, res) => {
 
 exports.singleWarehouse = (req, res) => {
   knex("warehouses")
+    .select(
+      'id',
+      'warehouse_name',
+      'address',
+      'city',
+      'country',
+      'contact_name',
+      'contact_position',
+      'contact_phone',
+      'contact_email'
+    )
     .where({ id: req.params.id })
     .then((data) => {
       // If record is not found, respond with 404
@@ -38,6 +49,7 @@ exports.singleWarehouse = (req, res) => {
       res.status(400).send(`Error retrieving warehouse ${req.params.id} ${err}`)
     );
 };
+
 
 exports.warehouseInventories = (req, res) => {
   knex("inventories")
