@@ -8,7 +8,7 @@ const uniqueID = require("uniqid");
 const validRegex_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // phone number validation
-const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{3}/i;
+const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{4}/i;
 
 exports.index = (_req, res) => {
   knex("warehouses")
@@ -23,15 +23,15 @@ exports.index = (_req, res) => {
 exports.singleWarehouse = (req, res) => {
   knex("warehouses")
     .select(
-      'id',
-      'warehouse_name',
-      'address',
-      'city',
-      'country',
-      'contact_name',
-      'contact_position',
-      'contact_phone',
-      'contact_email'
+      "id",
+      "warehouse_name",
+      "address",
+      "city",
+      "country",
+      "contact_name",
+      "contact_position",
+      "contact_phone",
+      "contact_email"
     )
     .where({ id: req.params.id })
     .then((data) => {
@@ -49,7 +49,6 @@ exports.singleWarehouse = (req, res) => {
       res.status(400).send(`Error retrieving warehouse ${req.params.id} ${err}`)
     );
 };
-
 
 exports.warehouseInventories = (req, res) => {
   knex("inventories")
