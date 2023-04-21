@@ -3,6 +3,7 @@ const { v4: uuid } = require("uuid");
 
 // Single Item Get Request
 exports.singleItem = (req, res) => {
+
 	knex
 		.select(
 			"inventories.id",
