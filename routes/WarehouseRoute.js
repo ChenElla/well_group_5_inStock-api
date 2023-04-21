@@ -7,4 +7,5 @@ router.route('/:id').get(warehouseController.singleWarehouse).put(warehouseContr
 
 router.route('/:id/inventories').get(warehouseController.warehouseInventories);
 
+router.route('*')
 module.exports = router;
