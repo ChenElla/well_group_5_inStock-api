@@ -87,10 +87,14 @@ exports.updateWarehouse = (req, res) => {
 };
 
 exports.warehouseInventories = (req, res) => {
-  knex("inventories")
+  knex('inventories')
+  .select("id", "item_name","category", "status", "quantity")
     .where({ warehouse_id: req.params.id })
     .then((data) => {
-      res.status(200).json(data);
+      if(data.length)
+        res.status(200).json(data);
+      else
+        res.status(404).send("warehouse ID is not found");
     })
     .catch((err) =>
       res
