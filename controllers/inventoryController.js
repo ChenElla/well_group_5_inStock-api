@@ -1,9 +1,8 @@
 const knex = require("knex")(require("../knexfile"));
-const { v4: uuid } = require("uuid");
+const uniqueID = require("uniqid");
 
 // Single Item Get Request
 exports.singleItem = (req, res) => {
-
 	knex
 		.select(
 			"inventories.id",
@@ -50,14 +49,11 @@ exports.getAllInventories = async (_req, res) => {
 
 exports.upsertItem = async (req, res) => {
 	let { id } = req.params;
-	console.log(id);
 	let newItem = id === undefined; //if it's a new item, there won't be an id paramater
 
 	const { warehouse_id, item_name, description, category, status, quantity } =
 		req.body;
 
-	console.log(warehouse_id);
-	console.log(req.body);
 	// Validate request body data
 	if (
 		!warehouse_id ||
@@ -84,11 +80,12 @@ exports.upsertItem = async (req, res) => {
 			return res.status(400).send("Invalid warehouse_id.");
 		}
 
+		//if it's an update, make sure the item exists, if not, create a new unique id
 		if (!newItem) {
 			let test = await knex("inventories").where("id", "asdf");
 			console.log(test);
 		} else {
-			id = uuid();
+			id = uniqueID();
 		}
 
 		// Upsert inventory item
