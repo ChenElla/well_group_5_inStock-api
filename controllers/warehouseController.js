@@ -7,8 +7,9 @@ const uniqueID = require("uniqid");
 // const validRegex_email =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const validRegex_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// phone number validation
-const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{4}/i;
+// phone number validation WHAT DOES $ SIGN DO
+const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
+
 
 exports.allWarehouses = (req, res) => {
   knex("warehouses")
@@ -61,6 +62,8 @@ exports.updateWarehouse = (req, res) => {
   // /\+1 \(365\) 888-2349/i
   //Valid phone format:+1 (123) 456-7890
   // Validate the request body for required data
+  if(!Object.keys(req.body).length)
+    return res.status(400).send('Please provide the entire json object');
   if(req.body.id != req.params.id)
     return res.status(400).send('The id in your provided json file does not match the id in your request url!');
   if (!req.body.warehouse_name || !req.body.city || !req.body.country || !req.body.contact_name || !req.body.contact_position || !req.body.address || !req.body.contact_phone || !req.body.contact_email) {
@@ -87,10 +90,14 @@ exports.updateWarehouse = (req, res) => {
 };
 
 exports.warehouseInventories = (req, res) => {
-  knex("inventories")
+  knex('inventories')
+  .select("id", "item_name","category", "status", "quantity")
     .where({ warehouse_id: req.params.id })
     .then((data) => {
-      res.status(200).json(data);
+      if(data.length)
+        res.status(200).json(data);
+      else
+        res.status(404).send("warehouse ID is not found");
     })
     .catch((err) =>
       res
@@ -154,11 +161,18 @@ exports.deleteWarehouse = (req, res) => {
   knex("warehouses")
     .delete()
     .where({ id: req.params.id })
-    .then(() => {
+    .then((data) => {
+      //WHY IS DATA A BINARY NUMBER (0 OR 1)
+      console.log(data);
       // For DELETE response we can use 204 status code
-      res
-        .status(204)
-        .send(`Warehouse with id: ${req.params.id} has been deleted`);
+      if(data){
+        res
+          .status(204)
+          .send();
+      }
+      else{
+        res.status(404).send(`Warehouse with id: ${req.params.id} is not found`);
+      }
     })
     .catch((err) =>
       res.status(500).send(`Error deleting Warehouse ${req.params.id} ${err}`)
