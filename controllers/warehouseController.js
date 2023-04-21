@@ -1,5 +1,5 @@
 const knex = require("knex")(require("../knexfile"));
-const { v4: uuid } = require("uuid");
+const uniqueID = require("uniqid");
 
 //email validation
 // const validRegex_email =
@@ -157,7 +157,7 @@ exports.addWarehouse = (req, res) => {
 			.send("Please make sure to provide a valid phone number");
 	}
 	const newWarehouse = {
-		id: uuid(),
+		id: uniqueID(),
 		warehouse_name: req.body.warehouse_name,
 		address: req.body.address,
 		city: req.body.city,
