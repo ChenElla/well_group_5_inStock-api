@@ -7,8 +7,9 @@ const uniqueID = require("uniqid");
 // const validRegex_email =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const validRegex_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// phone number validation
-const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{4}/i;
+// phone number validation WHAT DOES $ SIGN DO
+const validRegex_phone = /\+1 \([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
+
 
 exports.allWarehouses = (req, res) => {
   knex("warehouses")
