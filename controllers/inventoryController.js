@@ -65,9 +65,10 @@ exports.getAllInventories = async (_req, res) => {
 exports.upsertItem = async (req, res) => {
 	let { id } = req.params;
 	let newItem = id === undefined; //if it's a new item, there won't be an id paramater
-
-	const { warehouse_id, item_name, description, category, status, quantity } =
-		req.body;
+	const {warehouse_id, item_name, description, category, status, quantity } = req.body;
+	
+	// const { warehouse_id, item_name, description, category, status, quantity } =
+	// 	req.body;
 
 	// Validate request body data
 	if (
@@ -87,6 +88,7 @@ exports.upsertItem = async (req, res) => {
 
 	try {
 		// Check if warehouse_id exists in warehouses table
+		
 		const warehouseExists = await knex("warehouses")
 			.where("id", warehouse_id)
 			.first();

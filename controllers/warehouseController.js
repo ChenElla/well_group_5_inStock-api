@@ -198,3 +198,13 @@ exports.deleteWarehouse = (req, res) => {
 			res.status(500).send(`Error deleting Warehouse ${req.params.id} ${err}`)
 		);
 };
+
+exports.getWarehouseId = (req, res) => {
+  console.log(req.params.warehouseName);
+	knex("warehouses")
+    .select("id")
+		.where("warehouse_name", req.params.warehouseName)
+		.then((data) => {
+      res.status(200).json(data[0].id);
+    }).catch((e) => res.status(404).send(`No such warehouse exists`));
+};

@@ -6,6 +6,6 @@ router.route('/').get(warehouseController.allWarehouses).post(warehouseControlle
 router.route('/:id').get(warehouseController.singleWarehouse).put(warehouseController.updateWarehouse).delete(warehouseController.deleteWarehouse);
 
 router.route('/:id/inventories').get(warehouseController.warehouseInventories);
-
+router.route('/name_to_id/:warehouseName').get(warehouseController.getWarehouseId);
 router.route('*')
 module.exports = router;
