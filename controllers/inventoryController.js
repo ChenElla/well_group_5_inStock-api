@@ -27,7 +27,7 @@ exports.singleItem = (req, res) => {
 };
 
 exports.deleteInventoryItem = (req, res) => {
-  knex('inventories')
+knex('inventories')
     .delete()
     .where({ id: req.params.id })
     .then((data) => {
